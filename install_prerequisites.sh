@@ -38,15 +38,17 @@ export LD_LIBRARY_PATH=${tooldir}/install/lib:$LD_LIBRARY_PATH
 cd ${tooldir}
 wget http://yaml-cpp.googlecode.com/files/yaml-cpp-0.3.0.tar.gz
 tar -zxvf yaml-cpp-0.3.0.tar.gz
+if [ ! -d yaml-build ]; then
 mkdir yaml-build
 cd yaml-build
 cmake ../yaml-cpp -DCMAKE_INSTALL_PREFIX=${installdir} -DBUILD_SHARED_LIBS=ON
 make -j${nthreads} install
-
+fi
 
 # pginfo
 ########
 cd ${tooldir}
+if [ ! -d pginfo ]; then
 git clone https://github.com/jkeiren/pginfo.git
 cd pginfo
 git submodule update --init
@@ -59,6 +61,7 @@ cmake ../pginfo \
   -DYAMLCPP_LIBRARY=${installdir}/lib/libyaml-cpp.so 
 make -j${nthreads}
 ln -s `pwd`/pginfo ${tooldir}/install/bin
+fi
 
 # mCRL2
 #######
@@ -68,10 +71,10 @@ cd ${tooldir}
 #cd mcrl2-201210.1
 mkdir mcrl2
 cd mcrl2
-svn checkout https://svn.win.tue.nl/repos/MCRL2/trunk@11703 src
-cd src
-patch -p0 < ${tooldir}/pbespgsolve.patch
-cd ..
+svn checkout https://svn.win.tue.nl/repos/MCRL2/trunk@13132 src
+#cd src
+#patch -p0 < ${tooldir}/pbespgsolve.patch
+#cd ..
 mkdir build
 cd build
 cmake ../src -DCMAKE_INSTALL_PREFIX=${tooldir}/install \

@@ -17,3 +17,4 @@ tools/yaml*
 # Project files
 .project
 .pydevproject
+/tools/pgconvert

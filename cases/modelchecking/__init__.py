@@ -20,10 +20,14 @@ class Property(PBESCase):
     self.renfile = os.path.splitext(self.mcffile)[0] + '.ren'
     self.result['property'] = str(self)
   
+  def _properties(self):
+      return (self.__desc, self.lps, self.mcffile, 
+             self._temppath, self._outpath)
+  
   def __str__(self):
     return os.path.splitext(os.path.split(self.mcffile)[1])[0]
   
-  def __rename(self):
+  def _rename(self):
     '''If a lpsactionrename specification exists for this property, transform
        the LPS.'''
     if os.path.exists(self.renfile):
@@ -33,7 +37,7 @@ class Property(PBESCase):
   def _makePBES(self):
     '''Generate a PBES out of self.lps and self.mcffile, and apply pbesconstelm
        to it.'''
-    self.__rename()
+    self._rename()
     result = tools.lps2pbes('-f', self.mcffile, '-v', stdin=self.lps, memlimit=LPSTOOLS_MEMLIMIT, timeout=LPSTOOLS_TIMEOUT)['out']
     result = tools.pbesconstelm('-v', stdin=result, memlimit=LPSTOOLS_MEMLIMIT, timeout=LPSTOOLS_TIMEOUT)['out']
     return result
@@ -135,7 +139,6 @@ def getcases(debugOnly = False):
     [Case('SWP', windowsize=1, datasize=i) for i in [2,4,8] ] + \
     [Case('SWP', windowsize=2, datasize=i) for i in [2,4] ] + \
     [Case('Leader', nparticipants=n) for n in range(3, 7)] + \
-    [GameCase('Othello', width=4, height=4)] + \
     [GameCase('Clobber', width=w, height=h) for (w,h) in [(4,4)] ] + \
     [GameCase('Snake', width=w, height=h) for (w,h) in [(4,4)] ] + \
     [GameCase('Hex', width=w, height=h) for (w,h) in [(4,4)] ] + \
@@ -148,4 +151,5 @@ def getcases(debugOnly = False):
     [Case('BRP', datasize=i) for i in [2,4]] + \
     [Case('SWP', windowsize=3, datasize=i) for i in [2,4] ] + \
     [Case('SWP', windowsize=4, datasize=i) for i in [2] ]
+#    [GameCase('Othello', width=4, height=4)] + """ \
     

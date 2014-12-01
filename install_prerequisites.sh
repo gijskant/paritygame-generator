@@ -53,11 +53,14 @@ git clone https://github.com/jkeiren/pginfo.git
 cd pginfo
 git submodule update --init
 cd ${tooldir}
+cp -r pginfo/external/cppcli/include/cppcli/ install/include
+cp -r pginfo/external/cpplogging/include/cpplogging/ install/include
+
 mkdir pginfo-build
 cd pginfo-build
 cmake ../pginfo \
   -DCMAKE_INSTALL_PREFIX=${tooldir}/install \
-  -DYAMLCPP_INCLUDE_DIR=${installdir}/include/yaml-cpp \
+  -DYAMLCPP_INCLUDE_DIR=${installdir}/include \
   -DYAMLCPP_LIBRARY=${installdir}/lib/libyaml-cpp.so 
 make -j${nthreads}
 ln -s `pwd`/pginfo ${tooldir}/install/bin
@@ -87,14 +90,18 @@ fi
 
 # pgconvert
 ###########
+if [ -z "$MCRL2_PATH"  ]; then
+  MCRL2_PATH = "${tooldir}/install"
+fi
 cd ${tooldir}
 git clone https://github.com/tue-mdse/pgconvert.git
 mkdir pgconvert-build
 cd pgconvert-build
 cmake ../pgconvert \
   -DCMAKE_INSTALL_PREFIX=${tooldir}/install \
-  -DMCRL2_INCLUDE=${tooldir}/install/include \
-  -DMCRL2_LIB=${tooldir}/install/lib/mcrl2
+  -DCMAKE_CXX_FLAGS="-std=c++0x" \
+  -DMCRL2_INCLUDE=${MCRL2_PATH}/include \
+  -DMCRL2_LIB=${MCRL2_PATH}/lib/mcrl2
 make -j${nthreads}
 ln -s `pwd`/pgconvert ${tooldir}/install/bin
 

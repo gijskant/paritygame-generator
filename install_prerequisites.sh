@@ -65,25 +65,25 @@ fi
 
 # mCRL2
 #######
-cd ${tooldir}
+#cd ${tooldir}
 #wget http://www.mcrl2.org/download/release/mcrl2-201210.1.tar.gz
 #tar -zxvf mcrl2-201210.1.tar.gz
 #cd mcrl2-201210.1
-mkdir mcrl2
-cd mcrl2
-svn checkout https://svn.win.tue.nl/repos/MCRL2/trunk@13132 src
+#mkdir mcrl2
+#cd mcrl2
+#svn checkout https://svn.win.tue.nl/repos/MCRL2/trunk@13132 src
 #cd src
 #patch -p0 < ${tooldir}/pbespgsolve.patch
 #cd ..
-mkdir build
-cd build
-cmake ../src -DCMAKE_INSTALL_PREFIX=${tooldir}/install \
-  -DMCRL2_STAGE_ROOTDIR=`pwd`/stage \
-  -DMCRL2_ENABLE_EXPERIMENTAL=ON \
-  -DMCRL2_ENABLE_DEPRECATED=ON \
-  -DMCRL2_ENABLE_GUI_TOOLS=OFF \
-  -DMCRL2_MAN_PAGES=OFF
-make install -j${nthreads}
+#mkdir build
+#cd build
+#cmake ../src -DCMAKE_INSTALL_PREFIX=${tooldir}/install \
+#  -DMCRL2_STAGE_ROOTDIR=`pwd`/stage \
+#  -DMCRL2_ENABLE_EXPERIMENTAL=ON \
+#  -DMCRL2_ENABLE_DEPRECATED=ON \
+#  -DMCRL2_ENABLE_GUI_TOOLS=OFF \
+#  -DMCRL2_MAN_PAGES=OFF
+#make install -j${nthreads}
 
 # pgconvert
 ###########

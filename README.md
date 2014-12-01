@@ -9,6 +9,7 @@ The small changes are:
 * Only the model checking problems are selected from the set of benchmarks;
 * The Othello example is excluded, as we had problems with linearising the spec;
 * We exposed some methods and fields of the Python objects, to be able to reuse the code in our own project.
+* mCRL2 is not installed by `install_prerequisites.sh`.
 
 
 Parity game generator

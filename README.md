@@ -1,3 +1,16 @@
+Note
+---------------
+This repository is a clone of the benchmark set by Jeroen Keiren, 
+which is available at https://github.com/jkeiren/paritygame-generator.
+The original benchmark set has been slightly adapted for use the experimental
+section of a Science of Computer Programming submission, for which the 
+instructions and data files are available at https://github.com/gijskant/ltsmin-scp-graphite2014.
+The small changes are:
+* Only the model checking problems are selected from the set of benchmarks;
+* The Othello example is excluded, as we had problems with linearising the spec;
+* We exposed some methods and fields of the Python objects, to be able to reuse the code in our own project.
+
+
 Parity game generator
 =====================
 
